@@ -1,0 +1,88 @@
+<?php
+
+namespace Fungku\HubSpot\Api;
+
+class SocialMedia extends Api
+{
+    /**
+     * Get all publishing channels.
+     *
+     * @return \Fungku\HubSpot\Http\Response
+     */
+    public function channels()
+    {
+        $endpoint = '/broadcast/v1/channels/setting/publish/current';
+
+        return $this->request('get', $endpoint);
+    }
+
+    /**
+     * Get a broadcast channel.
+     *
+     * @param string $channel_guid
+     * @return \Fungku\HubSpot\Http\Response
+     */
+    public function getChannelById($channel_guid)
+    {
+        $endpoint = "/broadcast/v1/channels/{$channel_guid}";
+
+        return $this->request('get', $endpoint);
+    }
+
+    /**
+     * Get all broadcast messages.
+     *
+     * @param array $params
+     * @return \Fungku\HubSpot\Http\Response
+     */
+    public function broadcasts($params = [])
+    {
+        $endpoint = "/broadcast/v1/broadcasts";
+
+        $options['json'] = $params;
+
+        return $this->request('get', $endpoint, $options);
+    }
+
+    /**
+     * Get a broadcast.
+     *
+     * @param string $broadcast_guid
+     * @return \Fungku\HubSpot\Http\Response
+     */
+    public function getBroadcastById($broadcast_guid)
+    {
+        $endpoint = "/broadcast/v1/broadcasts/{$broadcast_guid}";
+
+        return $this->request('get', $endpoint);
+    }
+
+    /**
+     * Create a new broadcast message.
+     *
+     * @param array $broadcast
+     * @return \Fungku\HubSpot\Http\Response
+     */
+    public function createBroadcast($broadcast)
+    {
+        $endpoint = "/broadcast/v1/broadcasts";
+
+        $options['json'] = $broadcast;
+
+        return $this->request('post', $endpoint, $options);
+    }
+
+    /**
+     * Cancel a broadcast message.
+     *
+     * @param string $broadcast_guid
+     * @return \Fungku\HubSpot\Http\Response
+     */
+    public function cancelBroadcast($broadcast_guid)
+    {
+        $endpoint = "/broadcast/v1/broadcasts/{$broadcast_guid}";
+
+        return $this->request('delete', $endpoint);
+    }
+
+}
