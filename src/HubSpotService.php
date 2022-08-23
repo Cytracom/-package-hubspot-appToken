@@ -56,34 +56,13 @@ class HubSpotService
     /**
      * C O N S T R U C T O R ( ^_^)y
      *
-     * @param  string|null  $apiKey
+     * @param  string|null  $privateAppToken
      * @param  bool         $oauth
      * @param  HttpClient   $client
      * @throws HubSpotException
      */
     protected function __construct($privateAppToken = null, $oauth = false, HttpClient $client = null )
     {
-
-        // $this->oauth = $oauth;
-        // if($privateAppBypass){
-        //     // echo 'bypassing';
-            
-        //     // $this->apiKey = $apiKey ?: getenv('HUBSPOT_API_KEY');
-
-        //     if (empty($this->apiKey)) {
-        //         throw new HubSpotException("You must provide a HubSpot api key.");
-        //     }
-        //     $this->client = $client ?: new Client();
-        // } else {
-        //     // $this->oauth = $oauth;
-        //     $this->apiKey = $apiKey ?: getenv('HUBSPOT_API_KEY');
-
-        //     if (empty($this->apiKey)) {
-        //         throw new HubSpotException("You must provide a HubSpot api key.");
-        //     }
-        //     $this->client = $client ?: new Client();
-        // }
-
         $this->oauth = $oauth;
         $this->privateAppToken = $privateAppToken ?: getenv('HUBSPOT_API_KEY');
 
@@ -97,7 +76,7 @@ class HubSpotService
     /**
      * Make an instance of the service with an API key.
      *
-     * @param  string      $apiKey  HubSpot Api key
+     * @param  string      $privateAppToken  HubSpot Private App Token
      * @param  HttpClient  $client  An HttpClient implementation
      * @return static
      */
@@ -118,18 +97,6 @@ class HubSpotService
         return new static($access_token, true, $client);
     }
 
-    // /**
-    //  * Make an instance of the service with an Oauth token.
-    //  *
-    //  * @param  string      $access_token  HubSpot oauth access token
-    //  * @param  HttpClient  $client        An HttpClient implementation
-    //  * @return static
-    //  */
-    // public static function makeWithPrivateAppToken($access_token, HttpClient $client = null)
-    // {
-    //     return new static($access_token, true, $client, true);
-    // }
-
     /**
      * Return an instance of an API class based on the method called.
      *
@@ -146,7 +113,6 @@ class HubSpotService
             throw new HubSpotException("Target [$apiClass] is not instantiable.");
         }
 
-        // return new $apiClass($this->apiKey, $this->client, $this->oauth);
         return new $apiClass($this->privateAppToken, $this->client, $this->oauth);
     }
 

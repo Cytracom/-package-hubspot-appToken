@@ -19,10 +19,10 @@ abstract class Api
      */
     protected $urlEncoding = PHP_QUERY_RFC3986;
 
-    // /**
-    //  * @var string
-    //  */
-    // protected $apiKey;
+    /**
+     * @var string
+     */
+    protected $privateAppToken;
 
     /**
      * @var HttpClient
@@ -35,19 +35,13 @@ abstract class Api
     private $oauth;
 
     /**
-     * @param  string     $apiKey
+     * @param  string     $privateAppToken
      * @param  HttpClient $client
      * @param  bool       $oauth
      */
     public function __construct($privateAppToken, HttpClient $client, $oauth = false)
     {
-        echo 'Called from File: ' . debug_backtrace(2)[0]['file'] . "\n";
-        echo 'Called on Line: ' . debug_backtrace(2)[0]['line'] . "\n";
-        echo 'Called from Class: ' . debug_backtrace(2)[0]['class'] . "\n";
-        echo 'Called from Function: ' . debug_backtrace(2)[0]['function'] . "\n";
-
         $this->privateAppToken = $privateAppToken;
-        // $this->apiKey = $apiKey;
         $this->client = $client;
         $this->oauth = $oauth;
     }
@@ -80,7 +74,6 @@ abstract class Api
     protected function request($method, $endpoint, $options = [], $queryString = null)
     {
         $url = $this->generateUrl($endpoint, $queryString);
-        echo '=> API URL' . $url;
         return $this->requestUrl($method, $url, $options);
     }
 
@@ -93,9 +86,6 @@ abstract class Api
      */
     protected function generateUrl($endpoint, $queryString = null)
     {
-        // $authType = $this->oauth ? 'access_token' : 'hapikey';
-
-        // return $this->baseUrl . $endpoint . '?' . $authType . '=' . $this->apiKey . $queryString;
         return $this->baseUrl . $endpoint . '?' . $queryString;
     }
 
