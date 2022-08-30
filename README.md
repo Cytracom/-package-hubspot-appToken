@@ -4,16 +4,6 @@
  [![Total Downloads](https://img.shields.io/packagist/dt/fungku/hubspot-php.svg?style=flat-square)](https://packagist.org/packages/fungku/hubspot-php)
  [![License](https://img.shields.io/packagist/l/fungku/hubspot-php.svg?style=flat-square)](https://packagist.org/packages/fungku/hubspot-php)
  [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/ryanwinchester/hubspot-php.svg?style=flat-square)](https://scrutinizer-ci.com/g/ryanwinchester/hubspot-php/?branch=master)
-  [![CodeClimate Test Coverage](https://img.shields.io/codeclimate/coverage/github/ryanwinchester/hubspot-php.svg?style=flat-square)](https://codeclimate.com/github/ryanwinchester/hubspot-php/coverage)
- [![Build Status](https://img.shields.io/travis/ryanwinchester/hubspot-php.svg?style=flat-square)](https://travis-ci.org/ryanwinchester/hubspot-php)
-
-A new HubSpot API client. The sequel to my [perfectly functional wrapper](https://github.com/fungku/hubspot) of HubSpot/haPihP.
-client. However, this is a complete re-write and includes some of the new COS/v2 endpoints.
-
-##### BETA
-
-Please try it out, and let me know if things are working as expected. There may still be a few small breaking changes here and there, so it is not recommended to use this in production unless you really know what you're doing and don't mind working with code that is changing...
-
 
 #### PHP 5.5+ and Guzzle 6
 
@@ -27,7 +17,11 @@ I've upgraded to Guzzle v6 now.
 **Composer:**
 
 ```bash
-composer require "fungku/hubspot-php: dev-master"
+composer require "cytracom/package-hubspot-apptoken": "master"
+```
+Or add to your composer.json file
+```
+"cytracom/package-hubspot-apptoken": "master"
 ```
 
 ## Quickstart
@@ -36,10 +30,10 @@ composer require "fungku/hubspot-php: dev-master"
 
 All following examples assume this step.
 
-*Note:* The HubSpot class checks for a `HUBSPOT_API_KEY` environment variable if you don't include one during instantiation.
+*Note:* hubspot api keys are deprecated. You need to pass your private app token.
 
 ```php
-$hubspot = Fungku\HubSpot\HubSpotService::make('api-key');
+$hubspot = Fungku\HubSpot\HubSpotService::make('private-app-token');
 ```
 
 #### Get a single contact:
@@ -103,9 +97,15 @@ $response->getReasonPhrase() // 'OK';
 // etc...
 ```
 
-## Status
+#### TLDR
+Just drop your app token into the secrets.php and run the example to see data.
 
-If you see something not planned, that you want, make an [issue](https://github.com/fungku/hubspot-php/issues) and there's a good chance I will add it.
+```php
+php example.php
+```
+
+
+## Status
 
 - [x] Blog (COS) :new:
 - [x] Blog Authors (COS) :new:
@@ -127,3 +127,4 @@ If you see something not planned, that you want, make an [issue](https://github.
 - [x] Social Media
 - [ ] Templates (COS) :new:
 - [x] Workflows
+- [x] Tickets
