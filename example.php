@@ -18,4 +18,25 @@ foreach ($response->contacts as $contact) {
     );
 }
 
+$payload = [
+  [
+    "name" => "subject",
+    "value" => "This is an example ticket"
+  ],
+  [
+    "name" => "content",
+    "value" => "Here are the details of the ticket."
+  ],
+  [
+    "name" => "hs_pipeline",
+    "value" => "0"
+  ],
+  [
+    "name" => "hs_pipeline_stage",
+    "value" => "1"
+  ]
+  ];
+
+$response2 = $hubspot->tickets()->create($payload);
+var_dump($response2);
 ?>
