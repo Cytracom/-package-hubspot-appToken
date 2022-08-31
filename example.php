@@ -18,10 +18,10 @@ foreach ($response->contacts as $contact) {
     );
 }
 
-$payload = [
+$ticketPayload = [
   [
     "name" => "subject",
-    "value" => "This is an example ticket"
+    "value" => "This is an example."
   ],
   [
     "name" => "content",
@@ -37,6 +37,23 @@ $payload = [
   ]
   ];
 
-$response2 = $hubspot->tickets()->create($payload);
-var_dump($response2);
-?>
+$createdTicket = $hubspot->tickets()->create($payload)->getData();
+// Associate the ticket to company & customer
+var_dump($createdTicket->objectId);
+
+$crmPayload = [
+  [
+    "fromObjectId" => 'xxxxxxx',
+    "toObjectId" => $createdTicket->objectId,
+    "category" => "HUBSPOT_DEFINED",
+    "definitionId" => 15 // contact to ticket
+  ],
+  [
+    "fromObjectId" => 'xxxxxxx',
+    "toObjectId" => $createdTicket->objectId,
+    "category" => "HUBSPOT_DEFINED",
+    "definitionId" => 25 // company to ticket
+  ]
+  ];
+
+$crmBinding = $hubspot->crmassociations()->createBatch($crmPayload);
